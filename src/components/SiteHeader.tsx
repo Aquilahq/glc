@@ -24,7 +24,7 @@ const DISCOVER_LINKS = [
 ];
 
 const GATHER_LINKS = HOME_LINKS.slice(2);
-const CONNECT_LINKS = PAGE_LINKS;
+const DIRECT_LINKS = PAGE_LINKS.filter((link) => ["Prayer Wall", "Giving", "Contact"].includes(link.label));
 
 const underline =
   "relative py-2 transition-opacity after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:bg-secondary after:transition-transform after:duration-500 hover:after:scale-x-100";
@@ -81,14 +81,11 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
               </div>
             </div>
           </details>
-          <details className="group relative">
-            <summary className={`${underline} cursor-pointer list-none`}>Connect <span className="ml-1 text-xs opacity-60">⌄</span></summary>
-            <div className="invisible absolute right-0 top-full mt-3 w-48 translate-y-1 opacity-0 transition-all group-open:visible group-open:translate-y-0 group-open:opacity-100">
-              <div className="rounded-2xl border border-white/10 bg-deep-teal p-2 shadow-2xl">
-                {CONNECT_LINKS.map((l) => <Link key={l.label} to={l.to} className="block rounded-xl px-4 py-3 text-sm hover:bg-white/10">{l.label}</Link>)}
-              </div>
-            </div>
-          </details>
+          {DIRECT_LINKS.map((l) => (
+            <Link key={l.label} to={l.to} className={underline}>
+              {l.label}
+            </Link>
+          ))}
           <Link
             to="/"
             hash="visit"
