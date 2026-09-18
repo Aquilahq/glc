@@ -46,7 +46,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
       style={{ transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)" }}
     >
       <div className={`mx-auto flex max-w-7xl items-center justify-between px-5 transition-all duration-700 lg:px-10 ${solid ? "h-16" : "h-24"}`}>
-        <Link to="/" className="flex items-center text-primary-foreground" aria-label="Gracious Living Church home">
+        <Link to="/" className="flex items-center gap-3 text-primary-foreground" aria-label="Gracious Living Church home">
           <img
             src={churchLogo}
             alt="Gracious Living Church"
@@ -54,6 +54,9 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
             height={887}
             className={`w-auto transition-all duration-700 ${solid ? "h-9" : "h-12"}`}
           />
+          <span className="hidden text-[0.65rem] font-light italic tracking-[0.16em] text-primary-foreground/75 sm:inline">
+            Loving and living the gospel
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-7 text-sm font-bold text-primary-foreground lg:flex" aria-label="Main navigation">
