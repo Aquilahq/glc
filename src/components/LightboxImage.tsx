@@ -41,7 +41,7 @@ export function LightboxImage({
     <>
       <button
         type="button"
-        className={`group/lightbox relative block cursor-zoom-in text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary ${className}`}
+        className={`group/lightbox relative block cursor-zoom-in border-0 bg-transparent p-0 text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary ${className}`}
         onClick={() => setOpen(true)}
         aria-label={`Enlarge image: ${alt}`}
       >
