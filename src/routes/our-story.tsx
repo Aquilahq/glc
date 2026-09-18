@@ -4,6 +4,7 @@ import storyImage from "@/assets/official/our-story.jpg";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Reveal, RevealWords } from "@/components/Reveal";
+import { LightboxImage } from "@/components/LightboxImage";
 
 export const Route = createFileRoute("/our-story")({
   head: () => ({
@@ -34,7 +35,7 @@ function OurStory() {
               </div>
             <Reveal variant="rise" delay={260} className="relative">
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[5/4]">
-                <img src={storyImage} alt="Joe and Sue Cano" className="h-full w-full object-cover" />
+                <LightboxImage src={storyImage} alt="Joe and Sue Cano" className="h-full w-full" imageClassName="h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-deep-teal/45 to-transparent" />
               </div>
               <p className="mt-5 text-center font-signature text-6xl leading-none text-primary-foreground sm:text-7xl">Joe and Sue Cano</p>

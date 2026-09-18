@@ -14,6 +14,7 @@ import eventOneImage from "@/assets/official/event-1.png";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Reveal, RevealWords } from "@/components/Reveal";
+import { LightboxImage } from "@/components/LightboxImage";
 import { useScrollProgress } from "@/hooks/useParallax";
 import { CHURCH, formatServiceDate, upcomingServices } from "@/data/church";
 
@@ -83,13 +84,15 @@ function Hero() {
 
   return (
     <section id="top" ref={ref} className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-deep-teal">
-      <img
+      <LightboxImage
         src={churchHeroImage}
         alt="The San Gabriel Mountains rising above Upland, California"
         width={2500}
         height={1667}
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-[50%_bottom]"
+        className="absolute inset-0 z-0 h-full w-full"
+        imageClassName="pointer-events-none h-full w-full object-cover object-[50%_bottom]"
         style={{ transform: `translate3d(0, ${shift}px, 0) scale(1.04)` }}
+        loading="eager"
       />
       <div className="hero-veil absolute inset-0" />
       <div className="ray-wash pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
@@ -181,11 +184,11 @@ function ParallaxFigure({
   const { ref, progress } = useScrollProgress<HTMLDivElement>();
   return (
     <div ref={ref} className={`overflow-hidden rounded-2xl ${aspect} ${className}`}>
-      <img
+      <LightboxImage
         src={src}
         alt={alt}
-        loading="lazy"
-        className="h-[118%] w-full object-cover"
+        className="h-full w-full"
+        imageClassName="h-[118%] w-full object-cover"
         style={{ transform: `translate3d(0, ${(progress - 0.5) * -strength}px, 0)` }}
       />
     </div>
@@ -214,7 +217,7 @@ function UpcomingEvents() {
           {events.map((event, i) => (
             <Reveal key={event.title} variant="zoom" delay={i * 100}>
               <article className="group overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm">
-                <div className="aspect-[4/5] overflow-hidden bg-muted"><img src={event.image} alt={event.alt} className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" /></div>
+                <div className="aspect-[4/5] overflow-hidden bg-muted"><LightboxImage src={event.image} alt={event.alt} className="h-full w-full" imageClassName="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" /></div>
                 <div className="flex items-center justify-between p-5"><h3 className="text-2xl">{event.title}</h3><ArrowRight className="text-primary transition-transform duration-500 group-hover:translate-x-1" /></div>
               </article>
             </Reveal>
@@ -411,11 +414,11 @@ function Index() {
               <Reveal key={m.title} variant="rise" delay={i * 150}>
                 <article className="group h-full overflow-hidden rounded-2xl bg-primary-foreground/8 transition-transform duration-700 hover:-translate-y-2">
                   <div className="overflow-hidden">
-                    <img
+                    <LightboxImage
                       src={m.img}
                       alt={m.alt}
-                      loading="lazy"
-                      className="aspect-[4/3] w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
+                      className="w-full"
+                      imageClassName="aspect-[4/3] w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
                     />
                   </div>
                   <div className="p-7">
@@ -536,13 +539,13 @@ function Index() {
                 </div>
               </div>
               <div className="relative min-h-72">
-                <img
+                <LightboxImage
                   src={speakerImage}
                   alt="A Gracious Living Church speaker sharing a message"
                   width={1920}
                   height={2560}
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover object-[center_32%]"
+                  className="absolute inset-0 h-full w-full"
+                  imageClassName="h-full w-full object-cover object-[center_32%]"
                 />
                 <span className="absolute bottom-5 left-5 flex items-center gap-2 rounded-full bg-background/90 px-4 py-2 text-xs font-extrabold uppercase text-foreground shadow-lg">
                   <span className="live-dot size-2 rounded-full bg-soft-coral" /> Sundays live
