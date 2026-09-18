@@ -53,7 +53,11 @@ function PrayerWall() {
         .limit(60)
         .abortSignal(controller.signal);
       if (!error && data) {
-        setPrayers((data as Prayer[]).filter((prayer) => !prayer.request.startsWith("__GLC_SMOKE_TEST_")));
+        setPrayers(
+          (data as Prayer[]).filter(
+            (prayer) => !prayer.request.startsWith("__GLC_SMOKE_TEST_") && prayer.request !== "Cloudflare prayer smoke test",
+          ),
+        );
       }
     } catch (error) {
       console.error("Prayer wall could not load", error);
