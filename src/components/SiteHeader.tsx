@@ -18,9 +18,13 @@ const PAGE_LINKS = [
   { label: "Contact", to: "/contact" as const },
 ];
 
-const EXTERNAL_LINKS = [
-  { label: "Our Story", href: "/our-story" }
+const DISCOVER_LINKS = [
+  ...HOME_LINKS.slice(0, 2),
+  { label: "Our Story", to: "/our-story" as const },
 ];
+
+const GATHER_LINKS = HOME_LINKS.slice(2);
+const CONNECT_LINKS = PAGE_LINKS;
 
 const underline =
   "relative py-2 transition-opacity after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:origin-left after:scale-x-0 after:bg-secondary after:transition-transform after:duration-500 hover:after:scale-x-100";
@@ -60,21 +64,34 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
         </Link>
 
         <nav className="hidden items-center gap-7 text-sm font-bold text-primary-foreground lg:flex" aria-label="Main navigation">
-          {HOME_LINKS.map((l) => (
-            <Link key={l.label} to="/" hash={l.hash} className={underline}>
-              {l.label}
-            </Link>
-          ))}
-          {PAGE_LINKS.map((l) => (
-            <Link key={l.label} to={l.to} className={underline}>
-              {l.label}
-            </Link>
-          ))}
-          {EXTERNAL_LINKS.map((l) => (
-            <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className={underline}>
-              {l.label}
-            </a>
-          ))}
+          <details className="group relative">
+            <summary className={`${underline} cursor-pointer list-none`}>Discover <span className="ml-1 text-xs opacity-60">⌄</span></summary>
+            <div className="invisible absolute left-1/2 top-full mt-3 w-52 -translate-x-1/2 translate-y-1 opacity-0 transition-all group-open:visible group-open:translate-y-0 group-open:opacity-100">
+              <div className="rounded-2xl border border-white/10 bg-deep-teal p-2 shadow-2xl">
+                {DISCOVER_LINKS.map((l) => ("hash" in l ? (
+                  <Link key={l.label} to="/" hash={l.hash} className="block rounded-xl px-4 py-3 text-sm hover:bg-white/10">{l.label}</Link>
+                ) : (
+                  <Link key={l.label} to={l.to} className="block rounded-xl px-4 py-3 text-sm hover:bg-white/10">{l.label}</Link>
+                ))) }
+              </div>
+            </div>
+          </details>
+          <details className="group relative">
+            <summary className={`${underline} cursor-pointer list-none`}>Gather <span className="ml-1 text-xs opacity-60">⌄</span></summary>
+            <div className="invisible absolute left-1/2 top-full mt-3 w-48 -translate-x-1/2 translate-y-1 opacity-0 transition-all group-open:visible group-open:translate-y-0 group-open:opacity-100">
+              <div className="rounded-2xl border border-white/10 bg-deep-teal p-2 shadow-2xl">
+                {GATHER_LINKS.map((l) => <Link key={l.label} to="/" hash={l.hash} className="block rounded-xl px-4 py-3 text-sm hover:bg-white/10">{l.label}</Link>)}
+              </div>
+            </div>
+          </details>
+          <details className="group relative">
+            <summary className={`${underline} cursor-pointer list-none`}>Connect <span className="ml-1 text-xs opacity-60">⌄</span></summary>
+            <div className="invisible absolute right-0 top-full mt-3 w-48 translate-y-1 opacity-0 transition-all group-open:visible group-open:translate-y-0 group-open:opacity-100">
+              <div className="rounded-2xl border border-white/10 bg-deep-teal p-2 shadow-2xl">
+                {CONNECT_LINKS.map((l) => <Link key={l.label} to={l.to} className="block rounded-xl px-4 py-3 text-sm hover:bg-white/10">{l.label}</Link>)}
+              </div>
+            </div>
+          </details>
           <Link
             to="/"
             hash="visit"
@@ -99,11 +116,9 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                 {l.label}
               </Link>
             ))}
-            {EXTERNAL_LINKS.map((l) => (
-              <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="rounded-md p-3 hover:bg-muted">
-                {l.label}
-              </a>
-            ))}
+            <Link to="/our-story" className="rounded-md p-3 hover:bg-muted">
+              Our Story
+            </Link>
             <Link to="/" hash="visit" className="rounded-md p-3 hover:bg-muted">
               Plan a visit
             </Link>
