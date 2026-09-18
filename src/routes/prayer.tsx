@@ -52,7 +52,9 @@ function PrayerWall() {
         .order("created_at", { ascending: false })
         .limit(60)
         .abortSignal(controller.signal);
-      if (!error && data) setPrayers(data as Prayer[]);
+      if (!error && data) {
+        setPrayers((data as Prayer[]).filter((prayer) => !prayer.request.startsWith("__GLC_SMOKE_TEST_")));
+      }
     } catch (error) {
       console.error("Prayer wall could not load", error);
     } finally {
