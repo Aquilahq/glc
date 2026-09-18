@@ -23,6 +23,7 @@ export function LightboxImage({
   style,
 }: LightboxImageProps) {
   const [open, setOpen] = useState(false);
+  const [zoomed, setZoomed] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -42,7 +43,10 @@ export function LightboxImage({
       <button
         type="button"
         className={`group/lightbox relative block cursor-zoom-in border-0 bg-transparent p-0 text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-secondary ${className}`}
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setZoomed(false);
+          setOpen(true);
+        }}
         aria-label={`Enlarge image: ${alt}`}
       >
         <img src={src} alt={alt} loading={loading} width={width} height={height} className={imageClassName} style={style} />
@@ -53,26 +57,37 @@ export function LightboxImage({
 
       {open && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 sm:p-8"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/95 p-4 backdrop-blur-md sm:p-8"
           role="dialog"
           aria-modal="true"
-          aria-label={alt}
+          aria-label={`Image gallery: ${alt}`}
           onClick={() => setOpen(false)}
         >
-          <button
-            type="button"
-            className="absolute right-4 top-4 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-            onClick={() => setOpen(false)}
-            aria-label="Close enlarged image"
-          >
-            <X size={24} />
-          </button>
-          <img
-            src={src}
-            alt={alt}
-            className="max-h-[90vh] max-w-full rounded-lg object-contain shadow-2xl"
-            onClick={(event) => event.stopPropagation()}
-          />
+          <div className="flex max-h-full w-full max-w-6xl flex-col gap-4" onClick={(event) => event.stopPropagation()}>
+            <div className="flex items-center justify-between text-white">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">Image gallery</p>
+              <button
+                type="button"
+                className="rounded-full border border-white/20 bg-white/10 p-3 transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                onClick={() => setOpen(false)}
+                aria-label="Close image gallery"
+              >
+                <X size={22} />
+              </button>
+            </div>
+            <div className="flex min-h-0 flex-1 items-center justify-center overflow-auto rounded-2xl border border-white/15 bg-black/30 p-2 shadow-2xl sm:p-5">
+              <img
+                src={src}
+                alt={alt}
+                className={zoomed ? "max-w-none cursor-zoom-out rounded-xl object-contain" : "max-h-[72vh] max-w-full cursor-zoom-in rounded-xl object-contain"}
+                onClick={() => setZoomed((value) => !value)}
+              />
+            </div>
+            <div className="flex items-center justify-between gap-4 text-sm text-white/75">
+              <p>{alt}</p>
+              <span className="shrink-0 text-xs uppercase tracking-wider text-white/45">Click image to {zoomed ? "shrink" : "zoom"}</span>
+            </div>
+          </div>
         </div>
       )}
     </>
