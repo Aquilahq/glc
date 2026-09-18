@@ -58,9 +58,6 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
             height={887}
             className={`w-auto transition-all duration-700 ${solid ? "h-9" : "h-12"}`}
           />
-          <span className="hidden text-[0.65rem] font-light italic tracking-[0.16em] text-primary-foreground/75 sm:inline lg:hidden">
-            Loving and living the gospel
-          </span>
         </Link>
 
         <nav className="hidden items-center gap-7 text-sm font-bold text-primary-foreground lg:flex" aria-label="Main navigation">
