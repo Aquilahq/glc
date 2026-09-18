@@ -1,0 +1,10 @@
+{
+  "name": "aquilaproject-aquila-projects-glc",
+  "main": "dist/server/server.js",
+  "compatibility_date": "2026-09-08",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "dist/client",
+    "binding": "ASSETS"
+  }
+}
